@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
-
+import ExampleComponent from './components/ExampleComponent'
 type Props = {}
 
 export default class App extends Component<Props> {
@@ -9,6 +9,7 @@ export default class App extends Component<Props> {
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>
           <Text>Kickerapp</Text>
+          <ExampleComponent />
         </View>
       </SafeAreaView>
     )
