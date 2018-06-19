@@ -5,11 +5,13 @@ import { NavigationComponent } from 'react-native-material-bottom-navigation'
 import MatchesView from '../views/MatchesView'
 import HomeView from '../views/HomeView'
 import NewMatchView from '../views/NewMatchView'
+import SettingsView from '../views/SettingsView'
 
 const MainScreenTabNavigator = createBottomTabNavigator({
   Matches: { screen: MatchesView },
   Home: { screen: HomeView },
-  NewMatch: { screen: NewMatchView }
+  NewMatch: { screen: NewMatchView },
+  Settings: { screen: SettingsView }
 },
 {
   initialRouteName: 'Home',

@@ -11,3 +11,11 @@ export function decrement() {
     type: types.DECREMENT
   }
 }
+
+// Team Selection
+export function selectTeamId(teamId) {
+  return {
+    type: types.SELECT_TEAM,
+    payload: {selectedTeamId: teamId}
+  }
+}

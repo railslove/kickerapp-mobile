@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
-
 type Props = {}
 
 class MatchesView extends Component<Props> {

@@ -1,6 +1,6 @@
 // REDUX
-
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
 import * as reducers from './reducers'
 const reducer = combineReducers(reducers)
@@ -15,7 +15,7 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)
-const store = createStore(persistedReducer)
+const store = createStore(persistedReducer, applyMiddleware(thunk))
 const persistor = persistStore(store)
 export default {
   store,

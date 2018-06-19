@@ -48,8 +48,17 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  increment: (props) => {dispatch(increment(props))},
-  decrement: (props) => {dispatch(decrement(props))}
-})
+  increment: (props) => {
+    setTimeout(() => {
+      dispatch(increment(props))
+    }, 1000)
+  },
+  decrement:  (props) => {
+    setTimeout(() => {
+      dispatch(decrement(props))
+    }, 1000)
+  }})
+// increment: (props) => {dispatch(increment(props))},
+// decrement: (props) => {dispatch(decrement(props))}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExampleComponent)
