@@ -1,28 +1,20 @@
 import React, { Component } from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
-import ExampleComponent from './components/ExampleComponent'
+import { SafeAreaView } from 'react-native'
+import MainTabNavigation from './navigations/MainTabNavigation'
 type Props = {}
 
-export default class App extends Component<Props> {
+class Root extends Component<Props> {
   render() {
     return (
       <SafeAreaView style={styles.wrapper}>
-        <View style={styles.container}>
-          <Text>Kickerapp</Text>
-          <ExampleComponent />
-        </View>
+        <MainTabNavigation />
       </SafeAreaView>
     )
   }
 }
 
 const styles = {
-  wrapper: {
-    flex : 1
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+  wrapper: { flex : 1 }
 }
+
+export default Root
