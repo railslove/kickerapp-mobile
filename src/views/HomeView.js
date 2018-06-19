@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { SafeAreaView, Text, View } from 'react-native'
 import ExampleComponent from '../components/ExampleComponent'
 type Props = {}
 
@@ -9,15 +9,20 @@ class HomeView extends Component<Props> {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>HOME</Text>
-        <ExampleComponent />
-      </View>
+      <SafeAreaView style={styles.wrapper}>
+        <View style={styles.container}>
+          <Text>HOME</Text>
+          <ExampleComponent />
+        </View>
+      </SafeAreaView>
     )
   }
 }
 
 const styles = {
+  wrapper: {
+    flex: 1
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
