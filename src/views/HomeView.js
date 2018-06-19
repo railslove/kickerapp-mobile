@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-
+import ExampleComponent from '../components/ExampleComponent'
 type Props = {}
 
 class HomeView extends Component<Props> {
@@ -11,6 +11,7 @@ class HomeView extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text>HOME</Text>
+        <ExampleComponent />
       </View>
     )
   }
