@@ -14,11 +14,11 @@ class SelectTeamView extends Component<Props> {
   }
 
   debugLeagues () {
-    console.log(this.props.badgesQuery.leagues)
+    console.log(this.props)
   }
 
   render() {
-    const { leagues, loading } = this.props.badgesQuery
+    const { loading } = this.props.allLeagues
     return (
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>
@@ -47,60 +47,14 @@ const styles = {
   }
 }
 
-import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
-
-const BADGES_QUERY = gql`
-  query BadgesQuery($id: String!) {
-    leagues(league_slug: $id) {
-      name
-      longest_winning_streak{
-        name
-        image
-        winning_streak
-      }
-      longest_winning_streak_ever{
-        name
-        image
-        longest_winning_streak_games
-      }
-      top_crawler{
-        name
-        image
-        number_of_crawls
-      }
-      worst_crawler{
-        name
-        image
-        number_of_crawlings
-      }
-    }
-  }
-`
-
-//
-const SelectTeamViewWithGraphQL = compose(
-  graphql(BADGES_QUERY, {
-    name: 'badgesQuery',
-    // see documentation on computing query variables from props in wrapper
-    // http://dev.apollodata.com/react/queries.html#options-from-props
-    options: () => ({
-      variables: {
-        id: 'railslove-2018'
-      }
-    })
-  })
-)(SelectTeamView)
-
-
+// Apollo
+import allLeagues from '../apollo/allLeagues'
 
 // Redux
-
 import { connect } from 'react-redux'
 import { selectTeamId } from '../redux/actions/'
-
 const mapDispatchToProps = (dispatch) => ({
   selectTeamId: (props) => { dispatch(selectTeamId(props))}}
 )
 
-export default connect(null, mapDispatchToProps)(SelectTeamViewWithGraphQL)
+export default connect(null, mapDispatchToProps)(allLeagues(SelectTeamView))
