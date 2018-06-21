@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, SafeAreaView, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-
+import LeaguesList from '../components/LeaguesList'
 type Props = {selectTeamId: PropTypes.func }
 
 class SelectTeamView extends Component<Props> {
@@ -30,6 +30,7 @@ class SelectTeamView extends Component<Props> {
           <Button title='Select!' onPress = { () => {this.handleSelectTeam() }}/>
           <Text></Text>
           <Button title='debug leagues!' onPress = { () => {this.debugLeagues() }}/>
+          <LeaguesList />
         </View>
       </SafeAreaView>
     )
