@@ -75,7 +75,7 @@ LeaguesList.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:25,
+    paddingTop: 10,
     backgroundColor: '#fff'
   },
   list: {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   row: {
     backgroundColor: 'white',
     paddingHorizontal: 15,
-    paddingTop: 25
+    paddingTop: 15
   },
   rowTitle: {
     fontSize: 14,
@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
   rowDescription: {
     fontSize: 14,
     color: '#888888',
-    lineHeight: 20
+    lineHeight: 20,
+    paddingBottom: 10
   },
   separator: {
     height: StyleSheet.hairlineWidth,

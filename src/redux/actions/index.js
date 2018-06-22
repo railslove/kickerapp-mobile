@@ -13,7 +13,7 @@ export function decrement() {
 }
 
 // Team Selection
-export function selectTeamId(teamId) {
+export function selectLeagueSlug(teamId) {
   return {
     type: types.SELECT_TEAM,
     payload: {selectedTeamId: teamId}

@@ -4,7 +4,7 @@ import { Button, SafeAreaView, View, Text } from 'react-native'
 class SettingsView extends Component<Props> {
 
   deselectTeam () {
-    this.props.selectTeamId('')
+    this.props.selectLeagueSlug('')
   }
 
   render() {
@@ -24,14 +24,14 @@ type Props = {}
 // Redux
 
 import { connect } from 'react-redux'
-import { selectTeamId } from '../redux/actions/'
+import { selectLeagueSlug } from '../redux/actions/'
 
 const mapStateToProps = state => ({
   selectedTeamId: state.team.selectedTeamId
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  selectTeamId: (props) => { dispatch(selectTeamId(props))}}
+  selectLeagueSlug: (props) => { dispatch(selectLeagueSlug(props))}}
 )
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsView)

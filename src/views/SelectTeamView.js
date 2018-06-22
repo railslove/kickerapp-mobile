@@ -1,36 +1,35 @@
 import React, { Component } from 'react'
-import { Button, SafeAreaView, Text, View } from 'react-native'
+import { SafeAreaView, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
 import LeaguesList from '../components/LeaguesList'
-type Props = {selectTeamId: PropTypes.func }
+const allLeaguesContent = require('../../api-mocks/leaguesList.json')
+type Props = {
+  selectLeagueSlug: PropTypes.func,
+  allLeagues: PropTypes.object
+}
 
 class SelectTeamView extends Component<Props> {
-  static navigationOptions = {
-    tabBarLabel: 'Matches'
+  constructor(props) {
+    super(props)
+    this.leagueSelecthandler = this.leagueSelecthandler.bind(this)
   }
+  static navigationOptions = { tabBarLabel: 'Select League' }
 
-  handleSelectTeam () {
-    this.props.selectTeamId('railslove-2018')
-  }
-
-  debugLeagues () {
-    console.log(this.props)
+  leagueSelecthandler (leagueSlug) {
+    this.props.selectLeagueSlug(leagueSlug)
   }
 
   render() {
-    const { loading } = this.props.allLeagues
+    // const { loading } = this.props.allLeagues
     return (
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>
-          <Text>SELECT TEAM</Text>
-          {loading
+          <Text style={styles.title}>SELECT LEAGUE</Text>
+          {/* {loading
             ? (<Text>loading...</Text>)
             : (<Text>loaded!</Text>)
-          }
-          <Button title='Select!' onPress = { () => {this.handleSelectTeam() }}/>
-          <Text></Text>
-          <Button title='debug leagues!' onPress = { () => {this.debugLeagues() }}/>
-          <LeaguesList />
+          } */}
+          <LeaguesList allLeagues={allLeaguesContent} leagueSelecthandler={ this.leagueSelecthandler} />
         </View>
       </SafeAreaView>
     )
@@ -42,9 +41,12 @@ const styles = {
     flex: 1
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 19,
+    paddingTop:25
   }
 }
 
@@ -53,9 +55,9 @@ import allLeagues from '../apollo/allLeagues'
 
 // Redux
 import { connect } from 'react-redux'
-import { selectTeamId } from '../redux/actions/'
+import { selectLeagueSlug } from '../redux/actions/'
 const mapDispatchToProps = (dispatch) => ({
-  selectTeamId: (props) => { dispatch(selectTeamId(props))}}
+  selectLeagueSlug: (props) => { dispatch(selectLeagueSlug(props))}}
 )
 
 export default connect(null, mapDispatchToProps)(allLeagues(SelectTeamView))
