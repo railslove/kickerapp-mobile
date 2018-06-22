@@ -1,20 +1,6 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, Text, TextInput, View, ListView, TouchableHighlight } from 'react-native'
-
-type DataItem = {
-  title: string;
-  description: string;
-}
-
-const FILTER_TEXT = 'Select your league'
-const EMPTY_TEXT = 'there is no leagues matching previous search'
-
-const ds = new ListView.DataSource({
-  rowHasChanged: (r1, r2) => r1 !== r2,
-  sectionHeaderHasChanged: (h1, h2) => h1 !== h2
-})
-
-
+import { FlatList, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
+import PropTypes from 'prop-types'
 class LeaguesList extends Component {
 
   constructor(props) {
@@ -23,29 +9,17 @@ class LeaguesList extends Component {
     this.renderSeparator = this.renderSeparator.bind(this)
   }
 
-  state = {
-    filter: ''
-  }
+  state = { filter: '' }
 
   filterDatasource (text) {
+    const { allLeagues } = this.props
     const safe = String(text || '').replace(/([.*^$+?!(){}[\]/\\])/g,'\\$1')
     const regex = new RegExp(safe, 'i')
-    const filter = (row) => regex.test(row.title)
-    // var out = {}
-    // for(var sectionID in this.props.leaguesList){
-    // if(!this.props.leaguesList.hasOwnProperty(sectionID)){
-    //     continue
-    //   }
-    //
-    //   out[sectionID] = this.props.leaguesList[sectionID].data.filter(filter)
-    // }
-    const beqdenus = this.props.allLeagues
-    // console.log({beqdenus})
-    return (beqdenus)
+    const filter = (row) => regex.test(row.name)
+    return (allLeagues.filter(filter))
   }
 
   render() {
-    const dataSource = this.filterDatasource(this.state.filter)
     return (
       <View style={styles.container}>
         <View style={styles.searchContainer}>
@@ -54,41 +28,36 @@ class LeaguesList extends Component {
             autoCapitalize="none"
             autoCorrect={false}
             clearButtonMode="always"
-            onChangeText={(filter) => this.setState({filter})}
+            onChangeText={(typedText) => this.setState({typedText})}
             value={this.state.filter}
-            placeholder={FILTER_TEXT}
+            placeholder='type to filter'
             testID="explorer_search" />
         </View>
         <FlatList
+          keyExtractor={(item) => (item.id)} // essentail
           style={styles.list}
           enableEmptySections={false}
-          data={this.filterDatasource()}
-          renderItem={ ({item}) => (this.renderRow(item))}
+          data={this.filterDatasource(this.state.typedText)}
+          renderItem={ ({item, index}) => (this.renderRow(item, index, this.props.leagueSelecthandler))}
+          ItemSeparatorComponent = {this.renderSeparator}
         />
-        {/* <ListView
-          style={styles.list}
-          dataSource={dataSource}
-          renderRow={this.renderRow}
-          renderSeparator={this.renderSeparator}
-          enableEmptySections={false}
-        /> */}
       </View>
     )
   }
 
-  renderRow(data) {
+  renderRow(data, index, leagueSelecthandler) {
     let handler = () => {
-      console.log(data)
+      leagueSelecthandler(data.slug)
     }
     return (
-      <View key={data.id}>
+      <View key={index}>
         <TouchableHighlight onPress={handler}>
           <View style={styles.row}>
             <Text style={styles.rowTitle}>
               {data.name}
             </Text>
             <Text style={styles.rowDescription}>
-              {data.name}
+              {data.slug} - {data.matches_count} matches
             </Text>
           </View>
         </TouchableHighlight>
@@ -99,6 +68,10 @@ class LeaguesList extends Component {
   renderSeparator = (key) => ( <View key={key} style={styles.separator} /> )
 }
 
+LeaguesList.propTypes = {
+  allLeagues: PropTypes.array,
+  leagueSelecthandler: PropTypes.func
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

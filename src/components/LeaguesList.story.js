@@ -12,7 +12,7 @@ class LeaguesListStory extends React.Component {
   }
   render () {
     return (
-      <LeaguesList allLeagues={allLeagues} Select={ this.onLeaugeSelect} />
+      <LeaguesList allLeagues={allLeagues} leagueSelecthandler={ this.onLeaugeSelect} />
     )
   }
 }

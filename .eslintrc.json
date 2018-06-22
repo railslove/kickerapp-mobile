@@ -14,7 +14,7 @@
     "sourceType": "module"
   },
   "globals": {
-    "console": true
+    "console": true, "alert": true
   },
   "plugins": [ "react" ],
   "rules": {
