@@ -12,10 +12,10 @@ export function decrement() {
   }
 }
 
-// Team Selection
-export function selectLeagueSlug(teamId) {
+// League Selection
+export function selectLeagueSlug(leagueSlug) {
   return {
-    type: types.SELECT_TEAM,
-    payload: {selectedTeamId: teamId}
+    type: types.SELECT_LEAGUE,
+    payload: {selectedLeagueSlug: leagueSlug}
   }
 }

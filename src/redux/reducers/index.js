@@ -1,7 +1,7 @@
 import counter from './counter'
-import team from './team'
+import league from './league'
 
 export {
   counter,
-  team
+  league
 }

@@ -1,31 +1,31 @@
 import React, { Component } from 'react'
 import MainTabNavigation from './navigations/MainTabNavigation'
-import SelectTeam from './views/SelectTeamView'
+import SelectLeague from './views/SelectLeagueView'
 import PropTypes from 'prop-types'
 
 class RootView extends Component<Props> {
 
-  teamIsAlreadySelected () {
-    const { selectedTeamId } = this.props
-    return selectedTeamId != ''
+  leagueIsAlreadySelected () {
+    const { selectedLeagueSlug } = this.props
+    return selectedLeagueSlug != ''
   }
 
   render() {
-    return this.teamIsAlreadySelected()
+    return this.leagueIsAlreadySelected()
       ? <MainTabNavigation />
-      : <SelectTeam />
+      : <SelectLeague />
   }
 }
 
 type Props = {
-  selectedTeamId: PropTypes.string
+  selectedLeagueSlug: PropTypes.string
 }
 
 // Redux
 
 import { connect } from 'react-redux'
 const mapStateToProps = state => ({
-  selectedTeamId: state.team.selectedTeamId
+  selectedLeagueSlug: state.league.selectedLeagueSlug
 })
 
 export default connect(mapStateToProps, null)(RootView)

@@ -8,7 +8,7 @@ type Props = {
   allLeagues: PropTypes.object
 }
 
-class SelectTeamView extends Component<Props> {
+class SelectLeagueView extends Component<Props> {
   constructor(props) {
     super(props)
     this.leagueSelecthandler = this.leagueSelecthandler.bind(this)
@@ -60,4 +60,4 @@ const mapDispatchToProps = (dispatch) => ({
   selectLeagueSlug: (props) => { dispatch(selectLeagueSlug(props))}}
 )
 
-export default connect(null, mapDispatchToProps)(allLeagues(SelectTeamView))
+export default connect(null, mapDispatchToProps)(allLeagues(SelectLeagueView))

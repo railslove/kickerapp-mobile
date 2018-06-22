@@ -3,7 +3,7 @@ import { Button, SafeAreaView, View, Text } from 'react-native'
 
 class SettingsView extends Component<Props> {
 
-  deselectTeam () {
+  deSelectLeague () {
     this.props.selectLeagueSlug('')
   }
 
@@ -11,8 +11,8 @@ class SettingsView extends Component<Props> {
     return (
       <SafeAreaView style={{flex: 1}}>
         <View>
-          <Text>{this.props.selectedTeamId}</Text>
-          <Button title='Remove team' onPress={ () => {this.deselectTeam()} }/>
+          <Text>{this.props.selectedLeagueSlug}</Text>
+          <Button title='Remove league' onPress={ () => {this.deSelectLeague()} }/>
         </View>
       </SafeAreaView>
     )
@@ -27,7 +27,7 @@ import { connect } from 'react-redux'
 import { selectLeagueSlug } from '../redux/actions/'
 
 const mapStateToProps = state => ({
-  selectedTeamId: state.team.selectedTeamId
+  selectedLeagueSlug: state.league.selectedLeagueSlug
 })
 
 const mapDispatchToProps = (dispatch) => ({

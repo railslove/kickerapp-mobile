@@ -1,6 +1,6 @@
 export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
 
-// Team Selection
+// League Selection
 
-export const SELECT_TEAM = 'SELECT_TEAM'
+export const SELECT_LEAGUE = 'SELECT_LEAGUE'
