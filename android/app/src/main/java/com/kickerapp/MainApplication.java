@@ -1,4 +1,4 @@
-package com.kickerapp;
+package kickerapp.cool.kicker;
 
 import android.app.Application;
 
