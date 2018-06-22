@@ -47,7 +47,7 @@ class LeaguesList extends Component {
 
   renderRow(data, index, leagueSelecthandler) {
     let handler = () => {
-      leagueSelecthandler(data.slug)
+      leagueSelecthandler(data)
     }
     return (
       <View key={index}>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import LeaguesList from '../components/LeaguesList'
 const allLeaguesContent = require('../../api-mocks/leaguesList.json')
 type Props = {
-  selectLeagueSlug: PropTypes.func,
+  selectLeague: PropTypes.func,
   allLeagues: PropTypes.object
 }
 
@@ -15,8 +15,8 @@ class SelectLeagueView extends Component<Props> {
   }
   static navigationOptions = { tabBarLabel: 'Select League' }
 
-  leagueSelecthandler (leagueSlug) {
-    this.props.selectLeagueSlug(leagueSlug)
+  leagueSelecthandler (leagueObject) {
+    this.props.selectLeague(leagueObject)
   }
 
   render() {
@@ -55,9 +55,9 @@ import allLeagues from '../apollo/allLeagues'
 
 // Redux
 import { connect } from 'react-redux'
-import { selectLeagueSlug } from '../redux/actions/'
+import { selectLeague } from '../redux/actions/'
 const mapDispatchToProps = (dispatch) => ({
-  selectLeagueSlug: (props) => { dispatch(selectLeagueSlug(props))}}
+  selectLeague: (props) => { dispatch(selectLeague(props))}}
 )
 
 export default connect(null, mapDispatchToProps)(allLeagues(SelectLeagueView))

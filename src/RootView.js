@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 class RootView extends Component<Props> {
 
   leagueIsAlreadySelected () {
-    const { selectedLeagueSlug } = this.props
-    return selectedLeagueSlug != ''
+    const { league } = this.props
+    return league.slug != ''
   }
 
   render() {
@@ -18,14 +18,14 @@ class RootView extends Component<Props> {
 }
 
 type Props = {
-  selectedLeagueSlug: PropTypes.string
+  league: PropTypes.object
 }
 
 // Redux
 
 import { connect } from 'react-redux'
 const mapStateToProps = state => ({
-  selectedLeagueSlug: state.league.selectedLeagueSlug
+  league: state.league
 })
 
 export default connect(mapStateToProps, null)(RootView)

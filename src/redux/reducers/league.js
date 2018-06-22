@@ -1,7 +1,10 @@
 import * as types from '../actions/actionTypes'
 
 const initialState = {
-  selectedLeagueSlug: ''
+  id: null,
+  slug: '',
+  name: '',
+  matches_count: null
 }
 
 export default function league(state = initialState, action = {}) {
@@ -10,7 +13,11 @@ export default function league(state = initialState, action = {}) {
   case types.SELECT_LEAGUE:
     return {
       ...state,
-      selectedLeagueSlug: payload.selectedLeagueSlug
+      ...payload
+    }
+  case types.FLUSH_STORE:
+    return {
+      ...initialState
     }
   default:
     return state

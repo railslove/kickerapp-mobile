@@ -4,15 +4,27 @@ import { Button, SafeAreaView, View, Text } from 'react-native'
 class SettingsView extends Component<Props> {
 
   deSelectLeague () {
-    this.props.selectLeagueSlug('')
+    this.props.selectLeague({  id: null, slug: '', name: '', matches_count: null})
   }
+
+  revokeState () {
+    this.props.flushStore()
+  }
+
 
   render() {
     return (
       <SafeAreaView style={{flex: 1}}>
         <View>
-          <Text>{this.props.selectedLeagueSlug}</Text>
-          <Button title='Remove league' onPress={ () => {this.deSelectLeague()} }/>
+          <Text>ID: {this.props.league.id}</Text>
+          <Text>NAME: {this.props.league.name}</Text>
+          <Text>SLUG: {this.props.league.slug}</Text>
+          <Text>MATCHES: {this.props.league.matches_count}</Text>
+
+          <Text></Text>
+          <Button title='Select another league' onPress={ () => {this.deSelectLeague()} }/>
+          <Text></Text>
+          <Button title='Revoke state' onPress={ () => {this.revokeState()} }/>
         </View>
       </SafeAreaView>
     )
@@ -24,14 +36,15 @@ type Props = {}
 // Redux
 
 import { connect } from 'react-redux'
-import { selectLeagueSlug } from '../redux/actions/'
+import { selectLeague, flushStore } from '../redux/actions/'
 
 const mapStateToProps = state => ({
-  selectedLeagueSlug: state.league.selectedLeagueSlug
+  league: state.league
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  selectLeagueSlug: (props) => { dispatch(selectLeagueSlug(props))}}
-)
+  selectLeague: (props) => { dispatch(selectLeague(props))},
+  flushStore: () => { dispatch(flushStore())}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsView)

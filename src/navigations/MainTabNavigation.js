@@ -14,7 +14,7 @@ const MainScreenTabNavigator = createBottomTabNavigator({
   Settings: { screen: SettingsView }
 },
 {
-  initialRouteName: 'Home',
+  initialRouteName: 'Settings',
   tabBarComponent: Platform.OS === 'ios' ? TabView.TabBarBottom : NavigationComponent,
   tabBarPosition: 'bottom',
   swipeEnabled: false,
