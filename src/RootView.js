@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MainTabNavigation from './navigations/MainTabNavigation'
+import ExampleView from './views/ExampleView'
 import SelectLeague from './views/SelectLeagueView'
 import PropTypes from 'prop-types'
 
@@ -12,7 +12,7 @@ class RootView extends Component<Props> {
 
   render() {
     return this.leagueIsAlreadySelected()
-      ? <MainTabNavigation />
+      ? <ExampleView />
       : <SelectLeague />
   }
 }
