@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import ExampleView from './views/ExampleView'
 import SelectLeague from './views/SelectLeagueView'
 import PropTypes from 'prop-types'
-
+import MainTabNavigation from './navigations/MainTabNavigation'
 class RootView extends Component<Props> {
 
   leagueIsAlreadySelected () {
@@ -12,7 +11,7 @@ class RootView extends Component<Props> {
 
   render() {
     return this.leagueIsAlreadySelected()
-      ? <ExampleView />
+      ? <MainTabNavigation />
       : <SelectLeague />
   }
 }
@@ -20,8 +19,6 @@ class RootView extends Component<Props> {
 type Props = {
   league: PropTypes.object
 }
-
-// Redux
 
 import { connect } from 'react-redux'
 const mapStateToProps = state => ({

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
+import { ActivityIndicator, SafeAreaView, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
 import LeaguesList from '../components/LeaguesList'
 const allLeaguesContent = require('../../api-mocks/leaguesList.json')
@@ -20,16 +20,12 @@ class SelectLeagueView extends Component<Props> {
   }
 
   render() {
-    // const { loading } = this.props.allLeagues
+    const { loading } = this.props.allLeagues
     return (
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>
           <Text style={styles.title}>SELECT LEAGUE</Text>
-          {/* {loading
-            ? (<Text>loading...</Text>)
-            : (<Text>loaded!</Text>)
-          } */}
-          <LeaguesList allLeagues={allLeaguesContent} leagueSelecthandler={ this.leagueSelecthandler} />
+          <LeaguesList loading={loading} allLeagues={allLeaguesContent} leagueSelecthandler={ this.leagueSelecthandler} />
         </View>
       </SafeAreaView>
     )

@@ -1,18 +1,24 @@
 import React from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import PlatformIcon from '../components/PlatformIcon'
-export default class ExampleView extends React.Component {
+class ExampleView extends React.Component {
+
+  preformLoad () {
+    console.log('preformLoad',this.props)
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.iconContainer}>
-          <PlatformIcon androidIcon='notifications' iosIcon='md-notifications' size={45} style={styles.icon} />
+          <TouchableOpacity onPress={() => {this.preformLoad()}}>
+            <PlatformIcon androidIcon='notifications' iosIcon='md-notifications' size={45} style={styles.icon} />
+          </TouchableOpacity>
         </View>
       </View>
     )
   }
 }
-
 
 const styles = {
   container: {
@@ -28,3 +34,8 @@ const styles = {
     textAlign: 'center'
   }
 }
+
+// Apollo
+import allPLayers from '../apollo/allPlayers'
+
+export default allPLayers(ExampleView, {id: 'railslove-2018'})

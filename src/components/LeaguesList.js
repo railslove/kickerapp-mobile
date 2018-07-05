@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, View, TouchableHighlight } from 'react-native'
 import PropTypes from 'prop-types'
 class LeaguesList extends Component {
 
@@ -20,6 +20,7 @@ class LeaguesList extends Component {
   }
 
   render() {
+    const {loading} = this.props
     return (
       <View style={styles.container}>
         <View style={styles.searchContainer}>
@@ -33,14 +34,17 @@ class LeaguesList extends Component {
             placeholder='type to filter'
             testID="explorer_search" />
         </View>
-        <FlatList
-          keyExtractor={(item) => (item.id)} // essentail
-          style={styles.list}
-          enableEmptySections={false}
-          data={this.filterDatasource(this.state.typedText)}
-          renderItem={ ({item, index}) => (this.renderRow(item, index, this.props.leagueSelecthandler))}
-          ItemSeparatorComponent = {this.renderSeparator}
-        />
+        {loading
+          ? (<View style={styles.container}><ActivityIndicator size="small" /></View>)
+          : (<FlatList
+            keyExtractor={(item) => (item.id)} // essentail
+            style={styles.list}
+            enableEmptySections={false}
+            data={this.filterDatasource(this.state.typedText)}
+            renderItem={ ({item, index}) => (this.renderRow(item, index, this.props.leagueSelecthandler))}
+            ItemSeparatorComponent = {this.renderSeparator}
+          />)
+        }
       </View>
     )
   }
@@ -70,6 +74,7 @@ class LeaguesList extends Component {
 
 LeaguesList.propTypes = {
   allLeagues: PropTypes.array,
+  loading: PropTypes.bool,
   leagueSelecthandler: PropTypes.func
 }
 const styles = StyleSheet.create({
