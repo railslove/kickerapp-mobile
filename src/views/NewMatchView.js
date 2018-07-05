@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-import SelectPLayers from '../components/SelectPLayers'
+import PlayerSelect from '../components/PlayerSelect'
 type Props = {
   newMatchQuery: PropTypes.object
 }
@@ -34,7 +34,7 @@ class NewMatchView extends Component<Props> {
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>
           <Text>NEW MATCH</Text>
-          <SelectPLayers loading={this.isLoading()} playerArray={this.playerArray()} />
+          <PlayerSelect loading={this.isLoading()} playerArray={this.playerArray()} />
         </View>
       </SafeAreaView>
     )
