@@ -30,6 +30,7 @@ class NewMatchView extends Component<Props> {
   }
 
   render() {
+    console.log(this.playerArray())
     return (
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>

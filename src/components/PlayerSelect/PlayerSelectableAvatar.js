@@ -2,17 +2,34 @@ import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import PlayerAvatar from './PlayerAvatar'
 type Props = {
-  onPlayerSelectFinished: PropTypes.func,
-  playerData: PropTypes.array
+  onPlayerSelect: PropTypes.func,
+  playerData: PropTypes.array,
+  selected: PropTypes.bool
 }
 
-const PlayerSelectableAvatar = ({playerData, onPlayerSelectFinished}: Props) => (
-  <TouchableOpacity onPress={onPlayerSelectFinished}>
+const PlayerSelectableAvatar = ({playerData, onPlayerSelect, selected}: Props) => {
+  const handlePress = () => {
+    !selected ? onPlayerSelect(playerData.id) : () => {}
+  }
+  const AvatarImage = () => (
     <PlayerAvatar
       imageUri={playerData.image}
       name={playerData.name}
+      active={selected}
     />
-  </TouchableOpacity>
-)
+  )
 
+  return (
+    <TouchableOpacity onPress={() => { handlePress() }}>
+      <AvatarImage />
+    </TouchableOpacity>
+  )
+}
+
+const styles = {
+  selected: {
+    backgroundColor: 'red',
+    padding: 30
+  }
+}
 export default PlayerSelectableAvatar
