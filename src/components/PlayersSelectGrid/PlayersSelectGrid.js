@@ -2,6 +2,7 @@ import React from 'react'
 import { FlatList, ScrollView, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
+import PlayerSearch from './PlayerSearch'
 import {columnsNumber} from './utils'
 export default class playersSelectGrid extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ export default class playersSelectGrid extends React.Component {
     onPlayerSelectFinished: PropTypes.func
   }
   state = {
-    selectedPlayers: []
+    selectedPlayers: [],
+    headerVisible: false
   }
 
   onPlayerSelect (playerID) {
@@ -37,31 +39,41 @@ export default class playersSelectGrid extends React.Component {
 
   moreSelectIsPossible () {
     let { selectedPlayers } = this.state
-    console.log(selectedPlayers.length)
     return (selectedPlayers.length < 4)
   }
+
+  headerVisibilityHandler(scrollHanlder) {
+    if (scrollHanlder.nativeEvent.contentOffset.y === 0 && !this.state.headerVisible) {
+      this.setState({headerVisible: true})
+    }
+    return
+  }
+
   render() {
-    console.log('Player Grid', this.state.selectedPlayers)
     const {playerArray, loading} = this.props
+    const {headerVisible} = this.state
     return (
       <View>
         {loading
           ? (<LoadingIndicator />)
           : (
-            <ScrollView>
+            <View>
               <FlatList
+                // extraData={headerVisible}
+                columnWrapperStyle = {{backgroundColor: '#FFF'}}
+                ListHeaderComponent = {() => (<PlayerSearch headerVisible = {headerVisible} />)}
+                onScroll = {(event) => {this.headerVisibilityHandler(event)}}
                 data={playerArray}
                 renderItem={({item}) => (
                   <PlayerSelectableAvatar
                     playerData={item}
                     moreSelectIsPossible={this.moreSelectIsPossible}
                     onPlayerSelect={this.onPlayerSelect}
-                    onPlayerDeselect={this.onPlayerDeselect}
-                  />
+                    onPlayerDeselect={this.onPlayerDeselect} />
                 )}
                 keyExtractor={item => item.id}
                 numColumns={columnsNumber} />
-            </ScrollView>
+            </View>
           )}
       </View>
     )

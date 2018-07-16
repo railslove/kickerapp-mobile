@@ -28,7 +28,6 @@ class NewMatchView extends Component<Props> {
   onPlayerSelectFinished() { alert('onPlayerSelectFinished') }
 
   render() {
-    console.log(this.playerArray())
     return (
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>

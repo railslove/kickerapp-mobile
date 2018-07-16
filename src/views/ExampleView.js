@@ -4,7 +4,6 @@ import PlatformIcon from '../components/PlatformIcon'
 class ExampleView extends React.Component {
 
   preformLoad () {
-    console.log('preformLoad',this.props)
   }
 
   render() {
