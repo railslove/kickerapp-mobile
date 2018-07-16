@@ -1,5 +1,5 @@
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
-import PlayerSelect from './PlayerSelect'
+import PlayersSelectGrid from './PlayersSelectGrid'
 
 export { PlayerSelectableAvatar }
-export default PlayerSelect
+export default PlayersSelectGrid

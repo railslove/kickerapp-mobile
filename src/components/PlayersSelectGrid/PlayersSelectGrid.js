@@ -3,10 +3,12 @@ import { FlatList, ScrollView, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
 import {columnsNumber} from './utils'
-export default class PlayerSelect extends React.Component {
+export default class playersSelectGrid extends React.Component {
   constructor(props) {
     super(props)
     this.onPlayerSelect = this.onPlayerSelect.bind(this)
+    this.onPlayerDeselect = this.onPlayerDeselect.bind(this)
+    this.moreSelectIsPossible = this.moreSelectIsPossible.bind(this)
   }
   props: {
     playerArray: PropTypes.array,
@@ -14,26 +16,33 @@ export default class PlayerSelect extends React.Component {
     onPlayerSelectFinished: PropTypes.func
   }
   state = {
-    selectedPlayers: [
-      '4584'
-    ]
-  }
-
-  isPlayerSelected(playerID) {
-    const { selectedPlayers } = this.state
-    return selectedPlayers.find((item) => {
-      if (item == playerID) return true
-    })
+    selectedPlayers: []
   }
 
   onPlayerSelect (playerID) {
+
     let { selectedPlayers } = this.state
     selectedPlayers.push(playerID)
     this.setState({selectedPlayers: selectedPlayers})
   }
+
+  onPlayerDeselect (playerID) {
+    let { selectedPlayers } = this.state
+    const playerIndexInArray = selectedPlayers.indexOf(playerID)
+    if (playerIndexInArray !== -1) {
+      selectedPlayers.splice(playerIndexInArray, 1)
+    }
+    this.setState({selectedPlayers: selectedPlayers})
+  }
+
+  moreSelectIsPossible () {
+    let { selectedPlayers } = this.state
+    console.log(selectedPlayers.length)
+    return (selectedPlayers.length < 4)
+  }
   render() {
-    console.log(this.state.selectedPlayers)
-    const {playerArray, loading, onPlayerSelectFinished} = this.props
+    console.log('Player Grid', this.state.selectedPlayers)
+    const {playerArray, loading} = this.props
     return (
       <View>
         {loading
@@ -41,13 +50,13 @@ export default class PlayerSelect extends React.Component {
           : (
             <ScrollView>
               <FlatList
-                extraData={this.state}
                 data={playerArray}
                 renderItem={({item}) => (
                   <PlayerSelectableAvatar
                     playerData={item}
-                    selected={this.isPlayerSelected(item.id)}
+                    moreSelectIsPossible={this.moreSelectIsPossible}
                     onPlayerSelect={this.onPlayerSelect}
+                    onPlayerDeselect={this.onPlayerDeselect}
                   />
                 )}
                 keyExtractor={item => item.id}

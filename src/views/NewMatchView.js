@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
 import PropTypes from 'prop-types'
-import PlayerSelect from '../components/PlayerSelect'
+import PlayersSelectGrid from '../components/PlayersSelectGrid'
 type Props = {
   newMatchQuery: PropTypes.object
 }
@@ -10,7 +10,7 @@ class NewMatchView extends Component<Props> {
 
   constructor(props){
     super(props)
-    this.onPlayerSelectFinished = this.onPlayerSelectFinished.bind(this)
+    this.onPlayersSelectGridFinished = this.onPlayerSelectFinished.bind(this)
   }
 
   static navigationOptions = {
@@ -25,9 +25,7 @@ class NewMatchView extends Component<Props> {
     return this.props.newMatchQuery.leagues[0].users
   }
 
-  onPlayerSelectFinished() {
-    alert('onPlayerSelectFinished')
-  }
+  onPlayerSelectFinished() { alert('onPlayerSelectFinished') }
 
   render() {
     console.log(this.playerArray())
@@ -35,7 +33,7 @@ class NewMatchView extends Component<Props> {
       <SafeAreaView style={styles.wrapper}>
         <View style={styles.container}>
           <Text>NEW MATCH</Text>
-          <PlayerSelect loading={this.isLoading()} playerArray={this.playerArray()} />
+          <PlayersSelectGrid loading={this.isLoading()} playerArray={this.playerArray()} />
         </View>
       </SafeAreaView>
     )
