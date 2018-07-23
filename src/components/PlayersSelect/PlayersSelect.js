@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import FourSelectedPlayersBoard from './FourSelectedPlayersBoard'
 import PlayersSelectGrid from './PlayersSelectGrid'
 
+const allPlayersListArray = require('../../../api-mocks/playersList.json')
 
 export default class playersSelectGrid extends React.Component {
   constructor(props) {
@@ -19,7 +20,9 @@ export default class playersSelectGrid extends React.Component {
     return (
       <View>
         <View>
-          <FourSelectedPlayersBoard />
+          <FourSelectedPlayersBoard
+            playersArray={allPlayersListArray.slice(0, 4)}
+          />
           <PlayersSelectGrid
             loading={loading}
             playerArray={playerArray}
