@@ -1,12 +1,12 @@
 import React from 'react'
-import PlayerSelect from './PlayerSelect'
+import PlayerSelectGrid from './PlayerSelectGrid'
 const playersListArray = require('../../../api-mocks/playersList.json')
-class PlayerSelectStory extends React.Component {
+class PlayerSelectGridStory extends React.Component {
   render () {
     return (
-      <PlayerSelect playerArray= {playersListArray}/>
+      <PlayerSelectGrid playerArray={playersListArray}/>
     )
   }
 }
 
-export default PlayerSelectStory
+export default PlayerSelectGridStory

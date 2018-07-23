@@ -1,8 +1,8 @@
 import React from 'react'
-import { FlatList, ScrollView, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
-import PlayerSearch from './PlayerSearch'
+import PlayerSearchBox from './PlayerSearchBox'
 import {columnsNumber} from './utils'
 export default class playersSelectGrid extends React.Component {
   constructor(props) {
@@ -61,7 +61,7 @@ export default class playersSelectGrid extends React.Component {
               <FlatList
                 // extraData={headerVisible}
                 columnWrapperStyle = {{backgroundColor: '#FFF'}}
-                ListHeaderComponent = {() => (<PlayerSearch headerVisible = {headerVisible} />)}
+                ListHeaderComponent = {() => (<PlayerSearchBox headerVisible = {headerVisible} />)}
                 onScroll = {(event) => {this.headerVisibilityHandler(event)}}
                 data={playerArray}
                 renderItem={({item}) => (
