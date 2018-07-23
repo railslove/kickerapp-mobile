@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
+import { Text } from 'react-native'
 import PropTypes from 'prop-types'
-import PlayersSelectGrid from '../components/PlayersSelectGrid'
+import WrapperView from '../components/WrapperView'
+
+import PlayersSelect from '../components/PlayersSelect'
 type Props = {
   newMatchQuery: PropTypes.object
 }
@@ -10,7 +12,7 @@ class NewMatchView extends Component<Props> {
 
   constructor(props){
     super(props)
-    this.onPlayersSelectGridFinished = this.onPlayerSelectFinished.bind(this)
+    this.onPlayersSelectFinished = this.onPlayerSelectFinished.bind(this)
   }
 
   static navigationOptions = {
@@ -29,29 +31,15 @@ class NewMatchView extends Component<Props> {
 
   render() {
     return (
-      <SafeAreaView style={styles.wrapper}>
-        <View style={styles.container}>
-          <Text>NEW MATCH</Text>
-          <PlayersSelectGrid loading={this.isLoading()} playerArray={this.playerArray()} />
-        </View>
-      </SafeAreaView>
+      <WrapperView>
+        <Text>NEW MATCH</Text>
+        <PlayersSelect loading={this.isLoading()} playerArray={this.playerArray()} />
+      </WrapperView>
     )
-  }
-}
-
-const styles = {
-  wrapper: {
-    flex: 1
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
   }
 }
 
 // Apollo
 import allPlayers from '../apollo/allPlayers'
-
 
 export default allPlayers(NewMatchView, {id: 'railslove-2018'})

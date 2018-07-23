@@ -2,9 +2,10 @@ import React from 'react'
 import { FlatList, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
-import PlayerSearchBox from './PlayerSearchBox'
+import SearchBox from './SearchBox'
 import {columnsNumber} from './utils'
 export default class playersSelectGrid extends React.Component {
+
   constructor(props) {
     super(props)
     this.onPlayerSelect = this.onPlayerSelect.bind(this)
@@ -16,13 +17,9 @@ export default class playersSelectGrid extends React.Component {
     loading: PropTypes.bool,
     onPlayerSelectFinished: PropTypes.func
   }
-  state = {
-    selectedPlayers: [],
-    headerVisible: false
-  }
+  state = { selectedPlayers: [] }
 
   onPlayerSelect (playerID) {
-
     let { selectedPlayers } = this.state
     selectedPlayers.push(playerID)
     this.setState({selectedPlayers: selectedPlayers})
@@ -42,6 +39,10 @@ export default class playersSelectGrid extends React.Component {
     return (selectedPlayers.length < 4)
   }
 
+  fourPlayersSelected() {
+    return(this.state.selectedPlayers.length == 4)
+  }
+
   headerVisibilityHandler(scrollHanlder) {
     if (scrollHanlder.nativeEvent.contentOffset.y === 0 && !this.state.headerVisible) {
       this.setState({headerVisible: true})
@@ -51,29 +52,24 @@ export default class playersSelectGrid extends React.Component {
 
   render() {
     const {playerArray, loading} = this.props
-    const {headerVisible} = this.state
     return (
       <View>
         {loading
           ? (<LoadingIndicator />)
           : (
-            <View>
-              <FlatList
-                // extraData={headerVisible}
-                columnWrapperStyle = {{backgroundColor: '#FFF'}}
-                ListHeaderComponent = {() => (<PlayerSearchBox headerVisible = {headerVisible} />)}
-                onScroll = {(event) => {this.headerVisibilityHandler(event)}}
-                data={playerArray}
-                renderItem={({item}) => (
-                  <PlayerSelectableAvatar
-                    playerData={item}
-                    moreSelectIsPossible={this.moreSelectIsPossible}
-                    onPlayerSelect={this.onPlayerSelect}
-                    onPlayerDeselect={this.onPlayerDeselect} />
-                )}
-                keyExtractor={item => item.id}
-                numColumns={columnsNumber} />
-            </View>
+            <FlatList
+              ListHeaderComponent={() => (<SearchBox headerVisible/>)}
+              style={{backgroundColor: 'transparent'}}
+              data={playerArray}
+              renderItem={({item}) => (
+                <PlayerSelectableAvatar
+                  playerData={item}
+                  moreSelectIsPossible={this.moreSelectIsPossible}
+                  onPlayerSelect={this.onPlayerSelect}
+                  onPlayerDeselect={this.onPlayerDeselect} />
+              )}
+              keyExtractor={item => item.id}
+              numColumns={columnsNumber} />
           )}
       </View>
     )

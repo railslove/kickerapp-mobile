@@ -31,7 +31,10 @@ class PlayerSearchBox extends React.Component {
       return (
         <View style={{ width: screenWidth }}>
           {headerVisible && (
-            <Search ref={(searchBox) => this.searchBox = searchBox} />
+            <Search
+              ref={(searchBox) => this.searchBox = searchBox}
+              // backgroundColor='transparent'
+            />
           )}
         </View>
       )
