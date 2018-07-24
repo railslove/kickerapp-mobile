@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, FlatList, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
 import FourSelectedPlayersBoard from './FourSelectedPlayersBoard'
@@ -69,8 +69,8 @@ export default class playersSelectGrid extends React.Component {
             <View>
               <FourSelectedPlayersBoard
                 playersArray={selectedPlayers}
+                fourPlayersSelected={this.fourPlayersSelected()}
               />
-              <Button title='rerender handler' onPress={() => {this._componentHandler()}} />
               <FlatList
                 ListHeaderComponent={() => (<SearchBox headerVisible/>)}
                 style={{backgroundColor: 'transparent'}}

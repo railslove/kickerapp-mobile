@@ -1,9 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import FourSelectedPlayersBoard from './FourSelectedPlayersBoard'
 import PlayersSelectGrid from './PlayersSelectGrid'
-
-const allPlayersListArray = require('../../../api-mocks/playersList.json')
 
 export default class playersSelectGrid extends React.Component {
   constructor(props) {
@@ -18,14 +15,16 @@ export default class playersSelectGrid extends React.Component {
   render() {
     const {playersArray, loading} = this.props
     return (
-      <View>
-        <View>
-          <PlayersSelectGrid
-            loading={loading}
-            playersArray={playersArray}
-          />
-        </View>
+      <View style={styles.container}>
+        <PlayersSelectGrid
+          loading={loading}
+          playersArray={playersArray}
+        />
       </View>
     )
   }
+}
+
+const styles = {
+  container: {}
 }
