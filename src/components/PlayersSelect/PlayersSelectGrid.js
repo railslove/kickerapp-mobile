@@ -1,7 +1,8 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import { Button, FlatList, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
+import FourSelectedPlayersBoard from './FourSelectedPlayersBoard'
 import SearchBox from './SearchBox'
 import {columnsNumber} from './utils'
 export default class playersSelectGrid extends React.Component {
@@ -11,23 +12,30 @@ export default class playersSelectGrid extends React.Component {
     this.onPlayerSelect = this.onPlayerSelect.bind(this)
     this.onPlayerDeselect = this.onPlayerDeselect.bind(this)
     this.moreSelectIsPossible = this.moreSelectIsPossible.bind(this)
+
   }
   props: {
-    playerArray: PropTypes.array,
+    playersArray: PropTypes.array,
     loading: PropTypes.bool,
-    onPlayerSelectFinished: PropTypes.func
+    onPlayerSelectFinished: PropTypes.func,
+    playerSelectHandler: PropTypes.func
   }
   state = { selectedPlayers: [] }
 
+  _filterPlayerObject(playerID) {
+    // input: playerID
+    // output: {id: "", name: "", image: ""}
+    return this.props.playersArray.filter((player)=> {return player.id == playerID})[0]
+  }
   onPlayerSelect (playerID) {
     let { selectedPlayers } = this.state
-    selectedPlayers.push(playerID)
+    selectedPlayers.push(this._filterPlayerObject(playerID))
     this.setState({selectedPlayers: selectedPlayers})
   }
 
   onPlayerDeselect (playerID) {
     let { selectedPlayers } = this.state
-    const playerIndexInArray = selectedPlayers.indexOf(playerID)
+    const playerIndexInArray = selectedPlayers.findIndex((player) => (player.id == playerID))
     if (playerIndexInArray !== -1) {
       selectedPlayers.splice(playerIndexInArray, 1)
     }
@@ -51,25 +59,32 @@ export default class playersSelectGrid extends React.Component {
   }
 
   render() {
-    const {playerArray, loading} = this.props
+    const { playersArray, loading } = this.props
+    const { selectedPlayers } = this.state
     return (
       <View>
         {loading
           ? (<LoadingIndicator />)
           : (
-            <FlatList
-              ListHeaderComponent={() => (<SearchBox headerVisible/>)}
-              style={{backgroundColor: 'transparent'}}
-              data={playerArray}
-              renderItem={({item}) => (
-                <PlayerSelectableAvatar
-                  playerData={item}
-                  moreSelectIsPossible={this.moreSelectIsPossible}
-                  onPlayerSelect={this.onPlayerSelect}
-                  onPlayerDeselect={this.onPlayerDeselect} />
-              )}
-              keyExtractor={item => item.id}
-              numColumns={columnsNumber} />
+            <View>
+              <FourSelectedPlayersBoard
+                playersArray={selectedPlayers}
+              />
+              <Button title='rerender handler' onPress={() => {this._componentHandler()}} />
+              <FlatList
+                ListHeaderComponent={() => (<SearchBox headerVisible/>)}
+                style={{backgroundColor: 'transparent'}}
+                data={playersArray}
+                renderItem={({item}) => (
+                  <PlayerSelectableAvatar
+                    playerData={item}
+                    moreSelectIsPossible={this.moreSelectIsPossible}
+                    onPlayerSelect={this.onPlayerSelect}
+                    onPlayerDeselect={this.onPlayerDeselect} />
+                )}
+                keyExtractor={item => item.id}
+                numColumns={columnsNumber} />
+            </View>
           )}
       </View>
     )

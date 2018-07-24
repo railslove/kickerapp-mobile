@@ -10,22 +10,19 @@ export default class playersSelectGrid extends React.Component {
     super(props)
   }
   props: {
-    playerArray: PropTypes.array,
+    playersArray: PropTypes.array,
     loading: PropTypes.bool,
     onPlayerSelectFinished: PropTypes.func
   }
 
   render() {
-    const {playerArray, loading} = this.props
+    const {playersArray, loading} = this.props
     return (
       <View>
         <View>
-          <FourSelectedPlayersBoard
-            playersArray={allPlayersListArray.slice(0, 4)}
-          />
           <PlayersSelectGrid
             loading={loading}
-            playerArray={playerArray}
+            playersArray={playersArray}
           />
         </View>
       </View>

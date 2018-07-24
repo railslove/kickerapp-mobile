@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, Text, View } from 'react-native'
+import {Text, View } from 'react-native'
 import ImageLoad from 'react-native-image-placeholder'
 import {imageSize, imageMargin} from './utils'
 import colors from '../../utils/colors'

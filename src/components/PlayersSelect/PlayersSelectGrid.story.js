@@ -4,7 +4,7 @@ const playersListArray = require('../../../api-mocks/playersList.json')
 class PlayerSelectGridStory extends React.Component {
   render () {
     return (
-      <PlayersSelectGrid playerArray={playersListArray}/>
+      <PlayersSelectGrid playersArray={playersListArray}/>
     )
   }
 }

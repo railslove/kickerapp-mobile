@@ -3,22 +3,40 @@ import {
   Animated,
   Easing,
   StyleSheet,
+  View,
   Platform
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import PlayerAvatar from './PlayerAvatar'
-import {screenWidth, screenHeight} from './utils'
+import {screenWidth, imageSize} from './utils'
 export default class FourSelectedPlayersBoard extends Component {
+
   props: { playersArray: Array }
+  state = {
+    playersArray: []
+  }
+  constructor(props) {
+    super(props)
+  }
+
+  UNSAFE_componentWillReceiveProps() {
+    this.setState({
+      playersArray: [...this.props.playersArray]
+    })
+  }
+
   render() {
     return (
 
-      <SortableList
-        horizontal
-        style={styles.list}
-        contentContainerStyle={styles.contentContainer}
-        data={this.props.playersArray}
-        renderRow={this._renderRow} />
+      <View style={styles.container}>
+        <SortableList
+          horizontal
+          style={styles.list}
+          data={this.state.playersArray}
+          contentContainerStyle={styles.contentContainerStyle}
+          innerContainerStyle={styles.innerContainerStyle}
+          renderRow={this._renderRow} />
+      </View>
     )
   }
 
@@ -91,31 +109,30 @@ class Row extends Component {
 
 const styles = StyleSheet.create({
   list: {
-    height: screenWidth / 3,
+    height: 120 ,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%'
+    width: screenWidth - 20
   },
-  contentContainer: {
-    width: '100%'
-  },
-
+  container: { alignItems: 'center' },
+  contentContainerStyle: {width: '100%'},
+  innerContainerStyle: {width: '100%'},
   row: {
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#fff',
-    marginTop: 20,
-    marginVertical: 4,
-    padding: 5,
-    width: screenWidth / 4,
-    height: screenWidth / 4,
-    borderRadius: 4,
+    marginTop: 2,
+    // marginVertical: 5,
+    padding: 2,
+    margin: 4,
+    width: imageSize + 4,
+    height: imageSize + 4,
     ...Platform.select({
       ios: {
-        shadowColor: 'rgba(0,0,0,0.2)',
+        shadowColor: 'rgba(0,0,0,0.1)',
         shadowOpacity: 1,
         shadowOffset: {height: 2, width: 2},
-        shadowRadius: 2,
+        shadowRadius: 2
       },
 
       android: {

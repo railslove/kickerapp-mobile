@@ -22,7 +22,7 @@ class NewMatchView extends Component<Props> {
   isLoading() {
     return (this.props.newMatchQuery.loading)
   }
-  playerArray() {
+  playersArray() {
     if (this.isLoading()) return []
     return this.props.newMatchQuery.leagues[0].users
   }
@@ -33,7 +33,7 @@ class NewMatchView extends Component<Props> {
     return (
       <WrapperView>
         <Text>NEW MATCH</Text>
-        <PlayersSelect loading={this.isLoading()} playerArray={this.playerArray()} />
+        <PlayersSelect loading={this.isLoading()} playersArray={this.playersArray()} />
       </WrapperView>
     )
   }
