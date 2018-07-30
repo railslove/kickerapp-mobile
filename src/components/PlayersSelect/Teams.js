@@ -56,7 +56,6 @@ const stylesTeams = {
   wrapper: {
     width: screenWidth,
     height: 160,
-    backgroundColor: '#eeeeee',
     justifyContent: 'center'
   },
   container: {
@@ -64,8 +63,7 @@ const stylesTeams = {
     height: 140,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#eeee22'
+    alignItems: 'center'
   },
   icon: {
     margin: 5,
@@ -84,7 +82,8 @@ const SinglePlayerContainer = ({playerObject}: SinglePlayerProps) => {
     <View style={stylesSinglePlayer.wrapper}>
       <ImageBackground source={playerPlaceholder} style={stylesSinglePlayer.imageBackground}>
         <View style={stylesSinglePlayer.container}>
-          <Text>A Name</Text>
+          {playerObject && (
+            <Text>A Name</Text> )}
         </View>
       </ImageBackground>
     </View>
