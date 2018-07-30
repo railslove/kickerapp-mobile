@@ -8,7 +8,7 @@ import PlayersSelectGrid from '../src/components/PlayersSelect/PlayersSelectGrid
 import PlayerAvatar from '../src/components/PlayersSelect/PlayerAvatar.story.js'
 import PlatformIcon from '../src/components/PlatformIcon.story.js'
 import FourSelectedPlayersBoard from '../src/components/PlayersSelect/FourSelectedPlayersBoard.story.js'
-import Teams from '../src/components/PlayersSelect/Teams.story.js'
+
 
 storiesOf('Platform Icon', module).add('Main View', () => <PlatformIcon />)
 storiesOf('Leagues List', module).add('Main View', () => <LeaguesList showApp={linkTo('Button')} />)
@@ -17,7 +17,7 @@ storiesOf('Player Select', module)
   .add('Four Selected Players Board', () => <FourSelectedPlayersBoard />)
 
   .add('Single Avatar', () => <PlayerAvatar />)
-  .add('Teams', () => <Teams />)
 
+require('../src/components/PlayersSelect/Teams.story.js')
 
 console.ignoredYellowBox = [ 'Remote debugger' ]
