@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import SortableList from 'react-native-sortable-list'
 import Block from './FourSelectedPlayersBoardBlock'
+import Teams from './Teams'
 import {screenWidth} from './utils'
 
 const minHeight = 100
@@ -17,6 +18,7 @@ export default class FourSelectedPlayersBoard extends Component {
   props: { playersArray: Array, fourPlayersSelected: Boolean }
   state = {
     playersArray: [],
+    playersArrayFinalSelection: [],
     slideAnimValue: new Animated.Value(minHeight),
     fadeAnimValue: new Animated.Value(0)
   }
@@ -25,7 +27,11 @@ export default class FourSelectedPlayersBoard extends Component {
     super(props)
   }
 
-  newGame() { }
+  newGame() {
+    this.setState({
+      playersArrayFinalSelection: this.state.playersArray
+    })
+  }
 
   shufflePlayers() { }
 
@@ -75,9 +81,14 @@ export default class FourSelectedPlayersBoard extends Component {
           contentContainerStyle={styles.contentContainerStyle}
           innerContainerStyle={styles.innerContainerStyle}
           renderRow={this._renderRow} />
-        {fourPlayersSelected && (<Animated.View style={[styles.buttonContainer, {opacity: fadeAnimValue}]}>
-          <Button title='New Game' onPress={() => {this.newGame()}} />
-          <Button title='Shuffle' onPress={() => {this.shufflePlayers()}} />
+        {fourPlayersSelected && (<Animated.View style={[styles.teamsContainer, {opacity: fadeAnimValue}]}>
+          <View style={styles.buttonContainer}>
+            <Button title='New Game' onPress={() => {this.newGame()}} />
+            <Button title='Shuffle' onPress={() => {this.shufflePlayers()}} />
+          </View>
+          <View>
+            <Teams playersArray= {this.state.playersArrayFinalSelection} />
+          </View>
         </Animated.View>)}
       </Animated.View>
     )
@@ -91,6 +102,12 @@ export default class FourSelectedPlayersBoard extends Component {
 
 const styles = StyleSheet.create({
   container: { alignItems: 'center', height: minHeight, backgroundColor: '#FFFFFF'},
+  teamsContainer: {
+    height: 40,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
   buttonContainer: {
     height: 40,
     alignItems: 'center',

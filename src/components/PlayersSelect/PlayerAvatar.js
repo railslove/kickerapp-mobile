@@ -8,10 +8,11 @@ const playerPlaceholderImage = require('../../assets/images/loading-image-placeh
 type Props = {
   imageUri: PropTypes.string,
   name: PropTypes.string,
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  captionVisible: PropTypes.bool
 }
 
-const PlayerSelectableAvatar = ({imageUri, name, active}: Props) => (
+const PlayerSelectableAvatar = ({imageUri, name, active, captionVisible}: Props) => (
   <View style={styles.avatarContainer}>
     <View style={styles.imageContainer}>
       <ImageLoad
@@ -20,14 +21,17 @@ const PlayerSelectableAvatar = ({imageUri, name, active}: Props) => (
         placeholderSource={playerPlaceholderImage}
         customImagePlaceholder={imageLoadStyles.customImagePlaceholder}
         placeholderStyle={imageLoadStyles.placeholderStyle}
-        style={active ? imageLoadStyles.avatarImageActive : imageLoadStyles.avatarImage} />
+        style={[
+          imageLoadStyles.avatarImage,
+          active ? {...imageLoadStyles.avatarImageActive} : {...imageLoadStyles.avatarImageInactive}
+        ]} />
     </View>
     <View style={styles.textContainer}>
-      <View style={active ? styles.textwrapperActive : styles.textwrapper}>
+      {!captionVisible && (<View style={active ? styles.textwrapperActive : styles.textwrapper}>
         <Text style={active ? styles.textActive : styles.text}>
           {name}
         </Text>
-      </View>
+      </View>)}
     </View>
   </View>
 )
@@ -44,19 +48,17 @@ const imageLoadStyles = {
   },
   avatarImage: {
     flex: 1,
-    width: imageSize - 2 * imageMargin,
-    height: imageSize - 2 * imageMargin,
+    width: imageSize * imageMargin,
+    height: imageSize * imageMargin,
     justifyContent: 'center',
     alignItems: 'center'
   },
   avatarImageActive: {
-    flex: 1,
-    width: imageSize - 20 * imageMargin,
-    height: imageSize - 20 * imageMargin,
-    margin: 10 * imageMargin,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center'
+    width: imageSize - 6 * imageMargin,
+    height: imageSize - 6 * imageMargin,
+    margin: 3 * imageMargin
+  },
+  avatarImageInactive: {
   },
   loadingStyle: {
     size: 'large',

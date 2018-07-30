@@ -4,7 +4,7 @@ import PlayerAvatar from './PlayerAvatar'
 class PlayerAvatarStory extends React.Component {
   render () {
     return (
-      <View style={{backgroundColor: '#00AA00'}}>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text></Text>
         <Text>Inactive Avatar</Text>
         <Text></Text>
@@ -30,6 +30,17 @@ class PlayerAvatarStory extends React.Component {
           imageUri='http://www.mapadoceu.com.br/var/site/cache/public/images-alias/astro/photo/n/nikola-tesla-medium.jpg'
           active={true}
         />
+        <Text></Text>
+        <Text></Text>
+        <Text>caption false</Text>
+        <Text></Text>
+        <PlayerAvatar
+          name='Nicola Tesla 2 with some extra text'
+          imageUri='http://www.mapadoceu.com.br/var/site/cache/public/images-alias/astro/photo/n/nikola-tesla-medium.jpg'
+          captionVisible={true}
+        />
+        <Text></Text>
+        <Text></Text>
       </View>
     )
   }

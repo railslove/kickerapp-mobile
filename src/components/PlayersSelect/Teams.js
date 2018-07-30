@@ -2,6 +2,7 @@ import React from 'react'
 import {ImageBackground, Text, View } from 'react-native'
 import PlatformIcon from '../PlatformIcon'
 import {screenWidth} from './utils'
+import PlayerAvatar from './PlayerAvatar'
 import colors from '../../utils/colors'
 type Props = {
   playersArray: PropTypes.array
@@ -27,7 +28,7 @@ const stylesTeam = {
   },
   titleContainer: {
     flexDirection: 'row',
-    paddingVertical: 5
+    paddingVertical: 1
   },
   title: {
     fontSize: 17,
@@ -83,9 +84,17 @@ const SinglePlayerContainer = ({playerObject}: SinglePlayerProps) => {
       <ImageBackground source={playerPlaceholder} style={stylesSinglePlayer.imageBackground}>
         <View style={stylesSinglePlayer.container}>
           {playerObject && (
-            <Text>A Name</Text> )}
+            <PlayerAvatar
+              imageUri={playerObject.image}
+              name={playerObject.name}
+              captionVisible={true}
+            />
+          )}
         </View>
       </ImageBackground>
+      <View style={stylesSinglePlayer.nameContainer}>
+        <Text style={stylesSinglePlayer.nameText}>{playerObject ? playerObject.name : ''}</Text>
+      </View>
     </View>
   )
 }
@@ -101,7 +110,9 @@ const stylesSinglePlayer = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.avatarPlaceholder
-  }
+  },
+  nameContainer: {},
+  nameText: { fontSize: 11, textAlign: 'center'}
 }
 
 export default Teams
