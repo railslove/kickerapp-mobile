@@ -9,7 +9,7 @@ import SortableList from 'react-native-sortable-list'
 import Block from './FourSelectedPlayersBoardBlock'
 import {screenWidth} from './utils'
 
-const minHeight = 160
+const minHeight = 100
 const maxHeight = 300
 
 export default class FourSelectedPlayersBoard extends Component {
@@ -17,7 +17,8 @@ export default class FourSelectedPlayersBoard extends Component {
   props: { playersArray: Array, fourPlayersSelected: Boolean }
   state = {
     playersArray: [],
-    slideAnimValue: new Animated.Value(minHeight)
+    slideAnimValue: new Animated.Value(minHeight),
+    fadeAnimValue: new Animated.Value(0)
   }
 
   constructor(props) {
@@ -37,15 +38,25 @@ export default class FourSelectedPlayersBoard extends Component {
   }
   componentDidUpdate(){
     this.doSlideDown()
+    this.doFadeIn()
   }
 
   doSlideDown() {
-    const { fourPlayersSelected } = this.props
-    if (!fourPlayersSelected) { return true }
+    if (!this.props.fourPlayersSelected) { return true }
     Animated.timing(
       this.state.slideAnimValue,
       {
         toValue: maxHeight,
+        duration: 400
+      }
+    ).start()
+  }
+  doFadeIn() {
+    if (!this.props.fourPlayersSelected) { return true }
+    Animated.timing(
+      this.state.fadeAnimValue,
+      {
+        toValue: 1,
         duration: 1000
       }
     ).start()
@@ -54,7 +65,7 @@ export default class FourSelectedPlayersBoard extends Component {
 
   render() {
     const { fourPlayersSelected } = this.props
-    const { slideAnimValue } = this.state
+    const { fadeAnimValue, slideAnimValue } = this.state
     return (
       <Animated.View style={[styles.container, {height: slideAnimValue}]}>
         <SortableList
@@ -64,10 +75,10 @@ export default class FourSelectedPlayersBoard extends Component {
           contentContainerStyle={styles.contentContainerStyle}
           innerContainerStyle={styles.innerContainerStyle}
           renderRow={this._renderRow} />
-        {fourPlayersSelected && (<View style={styles.buttonContainer}>
+        {fourPlayersSelected && (<Animated.View style={[styles.buttonContainer, {opacity: fadeAnimValue}]}>
           <Button title='New Game' onPress={() => {this.newGame()}} />
           <Button title='Shuffle' onPress={() => {this.shufflePlayers()}} />
-        </View>)}
+        </Animated.View>)}
       </Animated.View>
     )
   }
@@ -88,7 +99,8 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {width: '100%'},
   list: {
-    height: 120 ,
+    height: 90,
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
     width: screenWidth - 20
