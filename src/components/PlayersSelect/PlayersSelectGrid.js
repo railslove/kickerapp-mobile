@@ -1,10 +1,10 @@
 import React from 'react'
-import { FlatList, View } from 'react-native'
+import { FlatList, ScrollView, View } from 'react-native'
 import LoadingIndicator from '../LoadingIndicator'
 import PlayerSelectableAvatar from './PlayerSelectableAvatar'
 import FourSelectedPlayersBoard from './FourSelectedPlayersBoard'
 import SearchBox from './SearchBox'
-import {columnsNumber} from './utils'
+import {columnsNumber, screenHeight} from './utils'
 export default class playersSelectGrid extends React.Component {
 
   constructor(props) {
@@ -47,10 +47,6 @@ export default class playersSelectGrid extends React.Component {
     return (selectedPlayers.length < 4)
   }
 
-  fourPlayersSelected() {
-    return(this.state.selectedPlayers.length == 4)
-  }
-
   headerVisibilityHandler(scrollHanlder) {
     if (scrollHanlder.nativeEvent.contentOffset.y === 0 && !this.state.headerVisible) {
       this.setState({headerVisible: true})
@@ -66,24 +62,25 @@ export default class playersSelectGrid extends React.Component {
         {loading
           ? (<LoadingIndicator />)
           : (
-            <View>
-              <FourSelectedPlayersBoard
-                playersArray={selectedPlayers}
-                fourPlayersSelected={this.fourPlayersSelected()}
-              />
-              <FlatList
-                ListHeaderComponent={() => (<SearchBox headerVisible/>)}
-                style={{backgroundColor: 'transparent'}}
-                data={playersArray}
-                renderItem={({item}) => (
-                  <PlayerSelectableAvatar
-                    playerData={item}
-                    moreSelectIsPossible={this.moreSelectIsPossible}
-                    onPlayerSelect={this.onPlayerSelect}
-                    onPlayerDeselect={this.onPlayerDeselect} />
-                )}
-                keyExtractor={item => item.id}
-                numColumns={columnsNumber} />
+            <View style={{backgroundColor: 'red'}}>
+              <FourSelectedPlayersBoard playersArray={selectedPlayers} />
+              <ScrollView style={{backgroundColor: 'pink', height: screenHeight - 320}}>
+                <View style={{backgroundColor: 'pink', height: screenHeight - 190}}>
+                  <FlatList
+                    ListHeaderComponent={() => (<SearchBox headerVisible/>)}
+                    style={{backgroundColor: 'transparent'}}
+                    data={playersArray}
+                    renderItem={({item}) => (
+                      <PlayerSelectableAvatar
+                        playerData={item}
+                        moreSelectIsPossible={this.moreSelectIsPossible}
+                        onPlayerSelect={this.onPlayerSelect}
+                        onPlayerDeselect={this.onPlayerDeselect} />
+                    )}
+                    keyExtractor={item => item.id}
+                    numColumns={columnsNumber} />
+                </View>
+              </ScrollView>
             </View>
           )}
       </View>

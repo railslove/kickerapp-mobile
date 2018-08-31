@@ -78,7 +78,7 @@ type SinglePlayerProps = {
 }
 
 const SinglePlayerContainer = ({playerObject}: SinglePlayerProps) => {
-  console.log({playerObject})
+  // console.log({playerObject})
   return (
     <View style={stylesSinglePlayer.wrapper}>
       <ImageBackground source={playerPlaceholder} style={stylesSinglePlayer.imageBackground}>

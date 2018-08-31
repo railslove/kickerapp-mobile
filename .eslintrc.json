@@ -21,7 +21,7 @@
     "comma-dangle": ["error", "never"],
     "react/jsx-uses-vars": 1,
     "react/display-name": 1,
-    "no-unused-vars": "warn",
+    "no-unused-vars": ["warn", {"argsIgnorePattern": "^_"}],
     "no-unexpected-multiline": "warn",
     "no-console": "off",
     "indent": [ "error", 2 ],

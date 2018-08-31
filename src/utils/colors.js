@@ -16,5 +16,7 @@ export default {
   ...baseColor,
   avatarPlaceholder: baseColor.grayLight,
   primary: baseColor.seafoamBlue,
-  primaryInverted: baseColor.darkBlueGrey
+  primaryInverted: baseColor.darkBlueGrey,
+  primaryButtonBackground: baseColor.seafoamBlue,
+  primaryButtonfontColor: baseColor.white
 }
